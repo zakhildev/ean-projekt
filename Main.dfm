@@ -1,4 +1,4 @@
-object Skibidi: TSkibidi
+object MainWindow: TMainWindow
   Left = 0
   Top = 0
   Caption = 'Zadanie 2 - Wielomian Interpolacyjny Newtona'

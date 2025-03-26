@@ -4,10 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, IntervalArithmetic32and64;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, NewtonUtils;
 
 type
-  TSkibidi = class(TForm)
+  TMainWindow = class(TForm)
     InputTypeRadioGroup: TRadioGroup;
     AuthorText: TStaticText;
   private
@@ -17,7 +17,7 @@ type
   end;
 
 var
-  Skibidi: TSkibidi;
+  MainWindow: TMainWindow;
 
 implementation
 
