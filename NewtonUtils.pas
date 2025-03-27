@@ -14,7 +14,7 @@ implementation
 procedure NewtonExtended(x, y: TExtendedArray; var coefficients: TExtendedArray);
 var
   n, i, j: Integer;
-  dividedDifferences: array of array of Extended;
+  dividedDifferences: array of TExtendedArray;
 begin
   n := Length(x);
   SetLength(dividedDifferences, n, n);
@@ -37,7 +37,7 @@ end;
 procedure NewtonUnitIntervals(x, y: TIntervalArray; var coefficients: TIntervalArray);
 var
   n, i, j: Integer;
-  dividedDifferences: array of array of Interval;
+  dividedDifferences: array of TIntervalArray;
 begin
   n := Length(x);
   SetLength(dividedDifferences, n, n);

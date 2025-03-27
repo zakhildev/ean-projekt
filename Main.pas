@@ -10,6 +10,16 @@ type
   TMainWindow = class(TForm)
     InputTypeRadioGroup: TRadioGroup;
     AuthorText: TStaticText;
+    foc: TListBox;
+    PunktyLabel: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    NewXLabel: TLabel;
+    NewYLabel: TLabel;
+    Edit3: TEdit;
+    OutLabel: TLabel;
   private
     { Private declarations }
   public
