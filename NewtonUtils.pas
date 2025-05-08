@@ -8,6 +8,8 @@ uses
 type
   TExtendedArray = array of Extended;
   TIntervalArray = array of Interval;
+  procedure NewtonExtended(x, y: TExtendedArray; var coefficients: TExtendedArray);
+  procedure NewtonGeneralIntervals(x, y: TIntervalArray; var coefficients: TIntervalArray);
 
 implementation
 
@@ -61,7 +63,7 @@ end;
 procedure NewtonGeneralIntervals(x, y: TIntervalArray; var coefficients: TIntervalArray);
 var
   n, i, j: Integer;
-  dividedDifferences: array of array of Interval;
+  dividedDifferences: array of TIntervalArray;
 begin
   n := Length(x);
   SetLength(dividedDifferences, n, n);

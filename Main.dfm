@@ -1,8 +1,11 @@
 object MainWindow: TMainWindow
   Left = 0
   Top = 0
+  Anchors = []
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Zadanie 2 - Wielomian Interpolacyjny Newtona'
-  ClientHeight = 334
+  ClientHeight = 683
   ClientWidth = 624
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -10,47 +13,32 @@ object MainWindow: TMainWindow
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  KeyPreview = True
+  OnKeyPress = OnEscKeyPress
   TextHeight = 15
-  object PunktyLabel: TLabel
+  object XLabel: TLabel
     Left = 8
-    Top = 32
-    Width = 37
+    Top = 64
+    Width = 122
     Height = 15
-    Caption = 'Punkty'
+    Caption = 'Wsp'#243#322'rz'#281'dna X punktu:'
   end
-  object NewXLabel: TLabel
-    Left = 239
-    Top = 59
-    Width = 13
-    Height = 15
-    Caption = 'X: '
-  end
-  object NewYLabel: TLabel
-    Left = 239
-    Top = 83
-    Width = 13
-    Height = 15
-    Caption = 'Y: '
-  end
-  object OutLabel: TLabel
-    Left = 239
-    Top = 163
-    Width = 189
-    Height = 15
-    Caption = 'Obliczony wielomian interpolacyjny'
-  end
-  object InputTypeRadioGroup: TRadioGroup
+  object YLabel: TLabel
     Left = 8
-    Top = 221
-    Width = 608
-    Height = 105
-    Caption = 'Wyb'#243'r typu danych wej'#347'ciowych'
-    ItemIndex = 0
-    Items.Strings = (
-      'Libczy rzeczywiste'
-      'Arytmetyka przedzia'#322'owa (Liczby)'
-      'Arytmetyka przedzia'#322'owa (Przedzia'#322'y)')
-    TabOrder = 0
+    Top = 90
+    Width = 122
+    Height = 15
+    Caption = 'Wsp'#243#322'rz'#281'dna Y punktu:'
+  end
+  object SectionLabel1: TLabel
+    AlignWithMargins = True
+    Left = 8
+    Top = 33
+    Width = 600
+    Height = 15
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Dodawanie punkt'#243'w'
   end
   object AuthorText: TStaticText
     Left = 8
@@ -58,54 +46,59 @@ object MainWindow: TMainWindow
     Width = 165
     Height = 19
     Caption = 'Piotr Blecharski 164306, gr. 107'
+    TabOrder = 0
+  end
+  object XNumBox: TNumberBox
+    Left = 136
+    Top = 61
+    Width = 121
+    Height = 23
+    Decimal = 18
+    Mode = nbmFloat
     TabOrder = 1
   end
-  object foc: TListBox
-    Left = 8
-    Top = 49
-    Width = 225
-    Height = 128
-    ItemHeight = 15
+  object YNumBox: TNumberBox
+    Left = 136
+    Top = 85
+    Width = 121
+    Height = 23
+    Decimal = 18
+    Mode = nbmFloat
     TabOrder = 2
   end
-  object Button1: TButton
-    Left = 239
-    Top = 109
-    Width = 140
+  object AddPointBtn: TButton
+    Left = 8
+    Top = 138
+    Width = 249
     Height = 25
     Caption = 'Dodaj punkt'
     TabOrder = 3
+    OnClick = AddPointBtnClick
   end
-  object Button2: TButton
-    Left = 8
-    Top = 183
-    Width = 225
-    Height = 25
-    Caption = 'Usu'#324' wybrany punkt'
+  object PointsList: TListBox
+    Left = 263
+    Top = 54
+    Width = 345
+    Height = 78
+    ItemHeight = 15
     TabOrder = 4
   end
-  object Edit1: TEdit
-    Left = 258
-    Top = 54
-    Width = 121
-    Height = 23
+  object RemovePointBtn: TButton
+    Left = 263
+    Top = 138
+    Width = 345
+    Height = 25
+    Caption = 'Usu'#324' punkt'
     TabOrder = 5
-    TextHint = '6'
+    OnClick = RemovePointBtnClick
   end
-  object Edit2: TEdit
-    Left = 258
-    Top = 80
-    Width = 121
-    Height = 23
+  object Button1: TButton
+    Left = 80
+    Top = 256
+    Width = 75
+    Height = 25
+    Caption = 'Oblicz wielomian'
     TabOrder = 6
-    TextHint = '9'
-  end
-  object Edit3: TEdit
-    Left = 239
-    Top = 184
-    Width = 377
-    Height = 23
-    ReadOnly = True
-    TabOrder = 7
+    OnClick = Button1Click
   end
 end
