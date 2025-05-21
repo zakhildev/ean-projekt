@@ -11,8 +11,8 @@ type
   PExtedned = ^Extended;
   procedure NewtonExtended(x, y: TExtendedArray; var coefficients: TExtendedArray);
   procedure NewtonInterval(x, y: TIntervalArray; var coefficients: TIntervalArray);
-  procedure ComputeInterpolatedExtendedValue(x, x0: Extended; coeffs: TExtendedArray; out output: Extended);
-  procedure ComputeInterpolatedIntervalValue(x, x0: Interval; coeffs: TIntervalArray; out output: Interval);
+  procedure ComputeInterpolatedExtendedValue(x: Extended; nodes, coeffs: TExtendedArray; out output: Extended);
+  procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval);
 
 implementation
 
@@ -71,45 +71,42 @@ begin
   end;
 end;
 
-procedure ComputeInterpolatedExtendedValue(x, x0: Extended; coeffs: TExtendedArray; out output: Extended);
+procedure ComputeInterpolatedExtendedValue(x: Extended; nodes, coeffs: TExtendedArray; out output: Extended);
 begin
-  if (Length(coeffs) <= 0) then
+  if (Length(coeffs) = 0) or (Length(nodes) < Length(coeffs)) then
   begin
-    MessageDlg('Nie mo¿na obliczcyæ wartoœci interpolowanej, gdy nie obliczono wspó³czynników!', mtError, [mbOK], 0, mbOK);
+    MessageDlg('Nie mo¿na obliczyæ wartoœci interpolowanej — niepoprawne dane wejœciowe!', mtError, [mbOK], 0);
     Exit;
   end;
-  var InterpolResult: Extended := 0;
-  for var i := Low(coeffs) to High(coeffs) do
+
+  output := coeffs[0];
+  for var i := 1 to High(coeffs) do
   begin
-    if (i = 0) then
-    begin
-      InterpolResult := InterpolResult + coeffs[i];
-      Continue;
-    end;
-    InterpolResult := InterpolResult + (coeffs[i] * (x - x0));
+    var product: Extended := 1.0;
+    for var j := 0 to i - 1 do
+      product := product * (x - nodes[j]);
+    output := output + coeffs[i] * product;
   end;
-  output :=  InterpolResult;
 end;
 
-procedure ComputeInterpolatedIntervalValue(x, x0: Interval; coeffs: TIntervalArray; out output: Interval);
+procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval);
 var
   InterpolResult: Interval;
 begin
-  if (Length(coeffs) <= 0) then
+  if (Length(coeffs) <= 0) or (Length(nodes) < Length(coeffs)) then
   begin
     MessageDlg('Nie mo¿na obliczcyæ wartoœci interpolowanej, gdy nie obliczono wspó³czynników!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
-  for var i := Low(coeffs) to High(coeffs) do
+
+  output := coeffs[0];
+  for var i := 1 to High(coeffs) do
   begin
-    if (i = 0) then
-    begin
-      InterpolResult := coeffs[i];
-      Continue;
-    end;
-    InterpolResult := IAdd(InterpolResult, IMul(coeffs[i], ISub(x, x0)))
+    var product: Interval := int_read('1');
+    for var j := 0 to i - 1 do
+      product := IMul(product, ISub(x, nodes[j]));
+    output := IAdd(output, IMul(coeffs[i], product));
   end;
-  output :=  InterpolResult;
 end;
 
 end.

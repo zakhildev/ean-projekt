@@ -200,7 +200,7 @@ begin
     MessageDlg('Nie można obliczcyć wartości interpolowanej, gdy nie obliczono współczynników!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
-  ComputeInterpolatedExtendedValue(InterpolNumBoxX_Real.Value, PointsX_Real[0], Coefficients_Real, InterpolResult);
+  ComputeInterpolatedExtendedValue(InterpolNumBoxX_Real.Value, PointsX_Real, Coefficients_Real, InterpolResult);
   Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Value.ToString + ') = ' + InterPolResult.ToString, nil);
   InterpolNumBoxX_Real.Value := 0;
 end;
@@ -267,7 +267,7 @@ begin
   end;
   var InputInterval := int_read(InterpolNumBoxX_Unit.Value.ToString);
   iends_to_strings(InputInterval, inL, inR);
-  ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit[0], Coefficients_Unit, InterpolResult);
+  ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit, Coefficients_Unit, InterpolResult);
   iends_to_strings(InterpolResult, outL, outR);
   Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxX_Unit.Value := 0;
@@ -361,7 +361,7 @@ begin
   InputInterval.a := left_read(InterpolNumBoxXLeft_General.Value.ToString);
   InputInterval.b := left_read(InterpolNumBoxXRight_General.Value.ToString);
   iends_to_strings(InputInterval, inL, inR);
-  ComputeInterpolatedIntervalValue(InputInterval, PointsX_General[0], Coefficients_General, InterpolResult);
+  ComputeInterpolatedIntervalValue(InputInterval, PointsX_General, Coefficients_General, InterpolResult);
   iends_to_strings(InterpolResult, outL, outR);
   Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxXLeft_General.Value := 0;
