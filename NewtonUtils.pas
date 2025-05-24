@@ -24,16 +24,16 @@ begin
   SetLength(dividedDifferences, n, n);
   SetLength(coefficients, n);
 
-  // Wype³nienie pierwszej kolumny ró¿nic dzielonych wartoœciami y
+  // Wypelnienie pierwszej kolumny roznic dzielonych wartosciami y
   for i := 0 to n - 1 do
     dividedDifferences[i, 0] := y[i];
 
-  // Obliczanie ró¿nic dzielonych
+  // Obliczanie roznic dzielonych
   for j := 1 to n - 1 do
     for i := 0 to n - j - 1 do
       dividedDifferences[i, j] := (dividedDifferences[i + 1, j - 1] - dividedDifferences[i, j - 1]) / (x[i + j] - x[i]);
 
-  // Wspó³czynniki wielomianu Newtona
+  // Wspolczynniki wielomianu Newtona
   for i := 0 to n - 1 do
     coefficients[i] := dividedDifferences[0, i];
 
@@ -50,23 +50,23 @@ begin
     SetLength(dividedDifferences, n, n);
     SetLength(coefficients, n);
 
-    // Wype³nienie pierwszej kolumny ró¿nic dzielonych wartoœciami y
+    // Wypelnienie pierwszej kolumny roznic dzielonych wartosciami y
     for i := 0 to n - 1 do
       dividedDifferences[i, 0] := y[i];
 
-    // Obliczanie ró¿nic dzielonych
+    // Obliczanie roznic dzielonych
     for j := 1 to n - 1 do
       for i := 0 to n - j - 1 do
         dividedDifferences[i, j] := IDiv(ISub(dividedDifferences[i + 1, j - 1], dividedDifferences[i, j - 1]),
                                          ISub(x[i + j], x[i]));
 
-    // Wspó³czynniki wielomianu Newtona
+    // Wspolczynniki wielomianu Newtona
     for i := 0 to n - 1 do
       coefficients[i] := dividedDifferences[0, i];
   except
     on EZeroDivide do
     begin
-      MessageDlg('B³¹d! Dzielenie przez przedzia³ zawieraj¹cy zero.', mtError, [mbOk], 0, mbOk);
+      MessageDlg('Blad! Dzielenie przez przedzial zawierajacy zero.', mtError, [mbOk], 0, mbOk);
       Exit;
     end;
   end;
@@ -80,7 +80,7 @@ var
 begin
   if (Length(coeffs) = 0) or (Length(nodes) < Length(coeffs)) then
   begin
-    MessageDlg('Nie mo¿na obliczyæ wartoœci interpolowanej — niepoprawne dane wejœciowe!', mtError, [mbOK], 0);
+    MessageDlg('Nie mozna obliczyc wartosci interpolowanej â€” niepoprawne dane wejsciowe!', mtError, [mbOK], 0);
     Exit;
   end;
 
@@ -100,7 +100,7 @@ var
 begin
   if (Length(coeffs) <= 0) or (Length(nodes) < Length(coeffs)) then
   begin
-    MessageDlg('Nie mo¿na obliczcyæ wartoœci interpolowanej, gdy nie obliczono wspó³czynników!', mtError, [mbOK], 0, mbOK);
+    MessageDlg('Nie mozna obliczcyc wartosci interpolowanej, gdy nie obliczono wspolczynnikÃ³w!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
 
