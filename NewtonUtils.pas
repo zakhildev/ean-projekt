@@ -8,15 +8,14 @@ uses
 type
   TExtendedArray = array of Extended;
   TIntervalArray = array of Interval;
-  PExtedned = ^Extended;
-  procedure NewtonExtended(x, y: TExtendedArray; var coefficients: TExtendedArray);
-  procedure NewtonInterval(x, y: TIntervalArray; var coefficients: TIntervalArray);
-  procedure ComputeInterpolatedExtendedValue(x: Extended; nodes, coeffs: TExtendedArray; out output: Extended);
-  procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval);
+  procedure NewtonExtended(x, y: TExtendedArray; out coefficients: TExtendedArray; out status: Integer);
+  procedure NewtonInterval(x, y: TIntervalArray; out coefficients: TIntervalArray; out status: Integer);
+  procedure ComputeInterpolatedExtendedValue(x: Extended; nodes, coeffs: TExtendedArray; out output: Extended; out status: Integer);
+  procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval; out status: Integer);
 
 implementation
 
-procedure NewtonExtended(x, y: TExtendedArray; var coefficients: TExtendedArray);
+procedure NewtonExtended(x, y: TExtendedArray; out coefficients: TExtendedArray; out status: Integer);
 var
   n, i, j: Integer;
   dividedDifferences: array of TExtendedArray;
@@ -37,9 +36,11 @@ begin
   // Wspó³czynniki wielomianu Newtona
   for i := 0 to n - 1 do
     coefficients[i] := dividedDifferences[0, i];
+
+  status := 0;
 end;
 
-procedure NewtonInterval(x, y: TIntervalArray; var coefficients: TIntervalArray);
+procedure NewtonInterval(x, y: TIntervalArray; out coefficients: TIntervalArray; out status: Integer);
 var
   n, i, j: Integer;
   dividedDifferences: array of TIntervalArray;
@@ -69,9 +70,13 @@ begin
       Exit;
     end;
   end;
+
+  status := 0;
 end;
 
-procedure ComputeInterpolatedExtendedValue(x: Extended; nodes, coeffs: TExtendedArray; out output: Extended);
+procedure ComputeInterpolatedExtendedValue(x: Extended; nodes, coeffs: TExtendedArray; out output: Extended; out status: Integer);
+var
+  product: Extended;
 begin
   if (Length(coeffs) = 0) or (Length(nodes) < Length(coeffs)) then
   begin
@@ -82,16 +87,16 @@ begin
   output := coeffs[0];
   for var i := 1 to High(coeffs) do
   begin
-    var product: Extended := 1.0;
+    product := 1.0;
     for var j := 0 to i - 1 do
       product := product * (x - nodes[j]);
     output := output + coeffs[i] * product;
   end;
 end;
 
-procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval);
+procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval; out status: Integer);
 var
-  InterpolResult: Interval;
+  InterpolResult, product: Interval;
 begin
   if (Length(coeffs) <= 0) or (Length(nodes) < Length(coeffs)) then
   begin
@@ -102,11 +107,13 @@ begin
   output := coeffs[0];
   for var i := 1 to High(coeffs) do
   begin
-    var product: Interval := int_read('1');
+    product := int_read('1');
     for var j := 0 to i - 1 do
       product := IMul(product, ISub(x, nodes[j]));
     output := IAdd(output, IMul(coeffs[i], product));
   end;
+
+  status := 0;
 end;
 
 end.

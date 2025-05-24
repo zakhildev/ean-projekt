@@ -32,7 +32,7 @@ object MainWindow: TMainWindow
     Top = 8
     Width = 843
     Height = 625
-    ActivePage = UnitTab
+    ActivePage = GeneralTab
     TabOrder = 0
     object RealTab: TTabSheet
       Caption = 'Liczby rzeczywiste'
@@ -136,7 +136,7 @@ object MainWindow: TMainWindow
         Top = 348
         Width = 603
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 5
       end
@@ -162,7 +162,7 @@ object MainWindow: TMainWindow
         Top = 24
         Width = 154
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 8
       end
@@ -171,7 +171,7 @@ object MainWindow: TMainWindow
         Top = 53
         Width = 154
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 9
       end
@@ -253,7 +253,7 @@ object MainWindow: TMainWindow
         Top = 53
         Width = 154
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 2
       end
@@ -282,7 +282,7 @@ object MainWindow: TMainWindow
         Top = 348
         Width = 603
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 5
         NegativeValueColor = clBlack
@@ -317,7 +317,7 @@ object MainWindow: TMainWindow
         Top = 24
         Width = 154
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 9
       end
@@ -402,7 +402,7 @@ object MainWindow: TMainWindow
         Top = 24
         Width = 149
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 0
       end
@@ -429,7 +429,7 @@ object MainWindow: TMainWindow
         Top = 53
         Width = 149
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 3
       end
@@ -457,7 +457,7 @@ object MainWindow: TMainWindow
         Top = 348
         Width = 473
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 6
       end
@@ -492,7 +492,7 @@ object MainWindow: TMainWindow
         Top = 84
         Width = 149
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 10
       end
@@ -501,7 +501,7 @@ object MainWindow: TMainWindow
         Top = 113
         Width = 149
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 11
       end
@@ -510,7 +510,7 @@ object MainWindow: TMainWindow
         Top = 377
         Width = 473
         Height = 23
-        Decimal = 18
+        Decimal = 20
         Mode = nbmFloat
         TabOrder = 12
       end

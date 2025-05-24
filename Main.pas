@@ -147,9 +147,11 @@ begin
 end;
 
 procedure TMainWindow.AddPointBtn_RealClick(Sender: TObject);
+var
+  x, y: Extended;
 begin
-  var x: Extended := XNumBox_Real.Value;
-  var y: Extended := YNumBox_Real.Value;
+  x := XNumBox_Real.Value;
+  y := YNumBox_Real.Value;
   PointsX_Real := PointsX_Real + [x];
   PointsY_Real := PointsY_Real + [y];
   PointsList_Real.AddItem('(' + x.ToString() + '; ' + y.ToString() + ')', nil);
@@ -177,6 +179,8 @@ begin
 end;
 
 procedure TMainWindow.ComputeCoefsBtn_RealClick(Sender: TObject);
+var
+  status: Integer;
 begin
   if (Length(PointsX_Real) <= 0) then
   begin
@@ -184,7 +188,7 @@ begin
     Exit;
   end;
   CoefBox_Real.Clear;
-  NewtonExtended(PointsX_Real, PointsY_Real, Coefficients_Real);
+  NewtonExtended(PointsX_Real, PointsY_Real, Coefficients_Real, status);
   for var i := Low(Coefficients_Real) to High(Coefficients_Real) do
   begin
     CoefBox_Real.AddItem('Współczynnik c' + i.ToString + ': ' + Coefficients_Real[i].ToString, nil);
@@ -194,24 +198,27 @@ end;
 procedure TMainWindow.ComputeResultsBtn_RealClick(Sender: TObject);
 var
   InterpolResult: Extended;
+  status: Integer;
 begin
   if (Length(Coefficients_Real) <= 0) then
   begin
     MessageDlg('Nie można obliczcyć wartości interpolowanej, gdy nie obliczono współczynników!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
-  ComputeInterpolatedExtendedValue(InterpolNumBoxX_Real.Value, PointsX_Real, Coefficients_Real, InterpolResult);
+  ComputeInterpolatedExtendedValue(InterpolNumBoxX_Real.Value, PointsX_Real, Coefficients_Real, InterpolResult, status);
   Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Value.ToString + ') = ' + InterPolResult.ToString, nil);
   InterpolNumBoxX_Real.Value := 0;
 end;
 
 procedure TMainWindow.AddPointBtn_UnitClick(Sender: TObject);
+var
+  leftX, rightX, leftY, rightY: string;
+  x, y: Interval;
 begin
-  var x: Interval := int_read(XNumBox_Unit.Value.ToString);
-  var y: Interval := int_read(YNumBox_Unit.Value.ToString);
+  x := int_read(XNumBox_Unit.Value.ToString);
+  y := int_read(YNumBox_Unit.Value.ToString);
   PointsX_Unit := PointsX_Unit + [x];
   PointsY_Unit := PointsY_Unit + [y];
-  var leftX, rightX, leftY, rightY: string;
   iends_to_strings(x, leftX, rightX);
   iends_to_strings(y, leftY, rightY);
   PointsList_Unit.AddItem('X:[' + leftX + '; ' + rightX + '] |Y:['  + leftY + '; ' + rightY + ']', nil);
@@ -239,6 +246,9 @@ begin
 end;
 
 procedure TMainWindow.ComputeCoefsBtn_UnitClick(Sender: TObject);
+var
+  left, right: string;
+  status: Integer;
 begin
   if (Length(PointsX_Unit) <= 0) then
   begin
@@ -246,10 +256,9 @@ begin
     Exit;
   end;
   CoefBox_Unit.Clear;
-  NewtonInterval(PointsX_Unit, PointsY_Unit, Coefficients_Unit);
+  NewtonInterval(PointsX_Unit, PointsY_Unit, Coefficients_Unit, status);
   for var i := Low(Coefficients_Unit) to High(Coefficients_Unit) do
   begin
-    var left, right: string;
     iends_to_strings(Coefficients_Unit[i], left, right);
     CoefBox_Unit.AddItem('Współczynnik c' + i.ToString + ': [' + left + #13#10 + right + ']', nil);
   end;
@@ -257,17 +266,18 @@ end;
 
 procedure TMainWindow.ComputeResultsBtn_UnitClick(Sender: TObject);
 var
-  InterpolResult: Interval;
+  InterpolResult, InputInterval: Interval;
   inL, inR, outL, outR: string;
+  status: Integer;
 begin
   if (Length(Coefficients_Unit) <= 0) then
   begin
     MessageDlg('Nie można obliczcyć wartości interpolowanej, gdy nie obliczono współczynników!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
-  var InputInterval := int_read(InterpolNumBoxX_Unit.Value.ToString);
+  InputInterval := int_read(InterpolNumBoxX_Unit.Value.ToString);
   iends_to_strings(InputInterval, inL, inR);
-  ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit, Coefficients_Unit, InterpolResult);
+  ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit, Coefficients_Unit, InterpolResult, status);
   iends_to_strings(InterpolResult, outL, outR);
   Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxX_Unit.Value := 0;
@@ -275,7 +285,9 @@ end;
 
 procedure TMainWindow.AddPointBtn_GeneralClick(Sender: TObject);
 var
+  status: Integer;
   x, y: Interval;
+  leftX, rightX, leftY, rightY: string;
 begin
   if not (XNumBoxLeft_General.Value <= XNumBoxRight_General.Value) then
   begin
@@ -295,7 +307,6 @@ begin
   y.b := right_read(YNumBoxRight_General.Value.ToString);
   PointsX_General := PointsX_General + [x];
   PointsY_General := PointsY_General + [y];
-  var leftX, rightX, leftY, rightY: string;
   iends_to_strings(x, leftX, rightX);
   iends_to_strings(y, leftY, rightY);
   PointsList_General.AddItem('X:[' + leftX + '; ' + rightX + '] |Y:['  + leftY + '; ' + rightY + ']', nil);
@@ -325,6 +336,9 @@ begin
 end;
 
 procedure TMainWindow.ComputeCoefsBtn_GeneralClick(Sender: TObject);
+var
+  status: Integer;
+  var left, right: string;
 begin
   if (Length(PointsX_General) <= 0) then
   begin
@@ -332,10 +346,9 @@ begin
     Exit;
   end;
   CoefBox_General.Clear;
-  NewtonInterval(PointsX_General, PointsY_General, Coefficients_General);
+  NewtonInterval(PointsX_General, PointsY_General, Coefficients_General, status);
   for var i := Low(Coefficients_General) to High(Coefficients_General) do
   begin
-    var left, right: string;
     iends_to_strings(Coefficients_General[i], left, right);
     CoefBox_General.AddItem('Współczynnik c' + i.ToString + ': [' + left + #13#10 + right + ']', nil);
   end;
@@ -345,6 +358,7 @@ procedure TMainWindow.ComputeResultsBtn_GeneralClick(Sender: TObject);
 var
   InterpolResult, InputInterval: Interval;
   inL, inR, outL, outR: string;
+  status: Integer;
 begin
   if (Length(Coefficients_General) <= 0) then
   begin
@@ -361,7 +375,7 @@ begin
   InputInterval.a := left_read(InterpolNumBoxXLeft_General.Value.ToString);
   InputInterval.b := left_read(InterpolNumBoxXRight_General.Value.ToString);
   iends_to_strings(InputInterval, inL, inR);
-  ComputeInterpolatedIntervalValue(InputInterval, PointsX_General, Coefficients_General, InterpolResult);
+  ComputeInterpolatedIntervalValue(InputInterval, PointsX_General, Coefficients_General, InterpolResult, status);
   iends_to_strings(InterpolResult, outL, outR);
   Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxXLeft_General.Value := 0;
