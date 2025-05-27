@@ -23,7 +23,6 @@ type
     CoefBox_Real: TListBox;
     SectionLabel3_Real: TLabel;
     InterpolXLabel_Real: TLabel;
-    InterpolNumBoxX_Real: TNumberBox;
     Results_Real: TListBox;
     ComputeResultsBtn_Real: TButton;
     UnitTab: TTabSheet;
@@ -32,31 +31,23 @@ type
     Label2: TLabel;
     RemovePointBtn_Unit: TButton;
     Label3: TLabel;
-    YNumBox_Unit: TNumberBox;
     PointsList_Unit: TListBox;
     ComputeCoefsBtn_Unit: TButton;
     Label4: TLabel;
-    InterpolNumBoxX_Unit: TNumberBox;
     Results_Unit: TListBox;
     CoefBox_Unit: TListBox;
     AddPointBtn_Unit: TButton;
     Label5: TLabel;
     Label6: TLabel;
-    XNumBox_Real: TNumberBox;
-    YNumBox_Real: TNumberBox;
-    XNumBox_Unit: TNumberBox;
     GeneralTab: TTabSheet;
-    XNumBoxLeft_General: TNumberBox;
     ComputeResultsBtn_General: TButton;
     Label7: TLabel;
     Label8: TLabel;
     RemovePointBtn_General: TButton;
     Label9: TLabel;
-    XNumBoxRight_General: TNumberBox;
     PointsList_General: TListBox;
     CoefBox_General: TListBox;
     Label10: TLabel;
-    InterpolNumBoxXLeft_General: TNumberBox;
     Results_General: TListBox;
     AddPointBtn_General: TButton;
     Label11: TLabel;
@@ -64,10 +55,19 @@ type
     ComputeCoefsBtn_General: TButton;
     Label13: TLabel;
     Label14: TLabel;
-    YNumBoxLeft_General: TNumberBox;
-    YNumBoxRight_General: TNumberBox;
     Label15: TLabel;
-    InterpolNumBoxXRight_General: TNumberBox;
+    XNumBox_Real: TEdit;
+    YNumBox_Real: TEdit;
+    InterpolNumBoxX_Real: TEdit;
+    XNumBox_Unit: TEdit;
+    YNumBox_Unit: TEdit;
+    InterpolNumBoxX_Unit: TEdit;
+    XNumBoxLeft_General: TEdit;
+    XNumBoxRight_General: TEdit;
+    YNumBoxLeft_General: TEdit;
+    YNumBoxRight_General: TEdit;
+    InterpolNumBoxXLeft_General: TEdit;
+    InterpolNumBoxXRight_General: TEdit;
     procedure OnEscKeyPress(Sender: TObject; var Key: Char);
     procedure AddPointBtn_RealClick(Sender: TObject);
     procedure RemovePointBtn_RealClick(Sender: TObject);
@@ -148,15 +148,21 @@ end;
 
 procedure TMainWindow.AddPointBtn_RealClick(Sender: TObject);
 var
-  x, y: Extended;
+  x, y: String;
 begin
-  x := XNumBox_Real.Value;
-  y := YNumBox_Real.Value;
-  PointsX_Real := PointsX_Real + [x];
-  PointsY_Real := PointsY_Real + [y];
-  PointsList_Real.AddItem('(' + x.ToString() + '; ' + y.ToString() + ')', nil);
-  XNumBox_Real.Value := 0;
-  YNumBox_Real.Value := 0;
+  x := XNumBox_Real.Text;
+  y := YNumBox_Real.Text;
+  try
+    PointsX_Real := PointsX_Real + [x.ToExtended];
+    PointsY_Real := PointsY_Real + [y.ToExtended];
+  except
+    MessageDlg('Wprowadzone współrzędne (X lub Y) nie są liczbami!', mtError, [mbOk], 0, mbOk);
+    Exit;
+  end;
+
+  PointsList_Real.AddItem('(' + x + '; ' + y + ')', nil);
+  XNumBox_Real.Text := '';
+  YNumBox_Real.Text := '';
   Coefficients_Real := [];
   CoefBox_Real.Clear;
   Results_Real.Clear;
@@ -198,6 +204,7 @@ end;
 procedure TMainWindow.ComputeResultsBtn_RealClick(Sender: TObject);
 var
   InterpolResult: Extended;
+  value: String;
   status: Integer;
 begin
   if (Length(Coefficients_Real) <= 0) then
@@ -205,9 +212,19 @@ begin
     MessageDlg('Nie można obliczcyć wartości interpolowanej, gdy nie obliczono współczynników!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
-  ComputeInterpolatedExtendedValue(InterpolNumBoxX_Real.Value, PointsX_Real, Coefficients_Real, InterpolResult, status);
-  Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Value.ToString + ') = ' + InterPolResult.ToString, nil);
-  InterpolNumBoxX_Real.Value := 0;
+
+  value := InterpolNumBoxX_Real.Text;
+
+  try
+    value.ToExtended;
+  except
+    MessageDlg('Wprowadzona współrzędna nie jest liczbą!', mtError, [mbOk], 0, mbOk);
+    Exit;
+  end;
+
+  ComputeInterpolatedExtendedValue(value.ToExtended, PointsX_Real, Coefficients_Real, InterpolResult, status);
+  Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Text + ') = ' + InterPolResult.ToString, nil);
+  InterpolNumBoxX_Real.Text := '';
 end;
 
 procedure TMainWindow.AddPointBtn_UnitClick(Sender: TObject);
@@ -215,15 +232,21 @@ var
   leftX, rightX, leftY, rightY: string;
   x, y: Interval;
 begin
-  x := int_read(XNumBox_Unit.Value.ToString);
-  y := int_read(YNumBox_Unit.Value.ToString);
+  try
+    x := int_read(XNumBox_Unit.Text);
+    y := int_read(YNumBox_Unit.Text);
+  except
+    MessageDlg('Wprowadzone współrzędne (X lub Y) nie są liczbami!', mtError, [mbOk], 0, mbOk);
+    Exit;
+  end;
+
   PointsX_Unit := PointsX_Unit + [x];
   PointsY_Unit := PointsY_Unit + [y];
   iends_to_strings(x, leftX, rightX);
   iends_to_strings(y, leftY, rightY);
   PointsList_Unit.AddItem('X:[' + leftX + '; ' + rightX + '] |Y:['  + leftY + '; ' + rightY + ']', nil);
-  XNumBox_Unit.Value := 0;
-  YNumBox_Unit.Value := 0;
+  XNumBox_Unit.Text := '';
+  YNumBox_Unit.Text := '';
   Coefficients_Unit := [];
   CoefBox_Unit.Clear;
   Results_Unit.Clear;
@@ -275,12 +298,19 @@ begin
     MessageDlg('Nie można obliczcyć wartości interpolowanej, gdy nie obliczono współczynników!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
-  InputInterval := int_read(InterpolNumBoxX_Unit.Value.ToString);
+
+  try
+    InputInterval := int_read(InterpolNumBoxX_Unit.Text);
+  except
+    MessageDlg('Wprowadzona współrzędna nie jest liczbą!', mtError, [mbOk], 0, mbOk);
+    Exit;
+  end;
+
   iends_to_strings(InputInterval, inL, inR);
   ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit, Coefficients_Unit, InterpolResult, status);
   iends_to_strings(InterpolResult, outL, outR);
   Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
-  InterpolNumBoxX_Unit.Value := 0;
+  InterpolNumBoxX_Unit.Text := '';
 end;
 
 procedure TMainWindow.AddPointBtn_GeneralClick(Sender: TObject);
@@ -289,31 +319,37 @@ var
   x, y: Interval;
   leftX, rightX, leftY, rightY: string;
 begin
-  if not (XNumBoxLeft_General.Value <= XNumBoxRight_General.Value) then
+  try
+    x.a := left_read(XNumBoxLeft_General.Text);
+    x.b := right_read(XNumBoxRight_General.Text);
+    y.a := left_read(YNumBoxLeft_General.Text);
+    y.b := right_read(YNumBoxRight_General.Text);
+  except
+    MessageDlg('Wprowadzone współrzędne (X lub Y) nie są liczbami!', mtError, [mbOk], 0, mbOk);
+    Exit;
+  end;
+
+  if not (x.a <= x.b) then
   begin
     MessageDlg('Przedział współrzędnej X zawiera błąd. Jego lewy koniec musi być mniejszy lub równy prawemu!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
 
-  if not (YNumBoxLeft_General.Value <= YNumBoxRight_General.Value) then
+  if not (y.a <= y.b) then
   begin
     MessageDlg('Przedział współrzędnej Y zawiera błąd. Jego lewy koniec musi być mniejszy lub równy prawemu!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
 
-  x.a := left_read(XNumBoxLeft_General.Value.ToString);
-  x.b := right_read(XNumBoxRight_General.Value.ToString);
-  y.a := left_read(YNumBoxLeft_General.Value.ToString);
-  y.b := right_read(YNumBoxRight_General.Value.ToString);
   PointsX_General := PointsX_General + [x];
   PointsY_General := PointsY_General + [y];
   iends_to_strings(x, leftX, rightX);
   iends_to_strings(y, leftY, rightY);
   PointsList_General.AddItem('X:[' + leftX + '; ' + rightX + '] |Y:['  + leftY + '; ' + rightY + ']', nil);
-  XNumBoxLeft_General.Value := 0;
-  XNumBoxRight_General.Value := 0;
-  YNumBoxLeft_General.Value := 0;
-  YNumBoxRight_General.Value := 0;
+  XNumBoxLeft_General.Text := '';
+  XNumBoxRight_General.Text := '';
+  YNumBoxLeft_General.Text := '';
+  YNumBoxRight_General.Text := '';
   Coefficients_General := [];
   CoefBox_General.Clear;
   Results_General.Clear;
@@ -366,20 +402,26 @@ begin
     Exit;
   end;
 
-  if not (InterpolNumBoxXLeft_General.Value <= InterpolNumBoxXRight_General.Value) then
+  try
+    InputInterval.a := left_read(InterpolNumBoxXLeft_General.Text);
+    InputInterval.b := right_read(InterpolNumBoxXRight_General.Text);
+  except
+    MessageDlg('Wprowadzone końce przedziedziału współrzędnej nie są liczbami!', mtError, [mbOk], 0, mbOk);
+    Exit;
+  end;
+
+  if not (InputInterval.a <= InputInterval.b) then
   begin
     MessageDlg('Przedział współrzędnej X wartości interpolowanej zawiera błąd. Jego lewy koniec musi być mniejszy lub równy prawemu!', mtError, [mbOK], 0, mbOK);
     Exit;
   end;
 
-  InputInterval.a := left_read(InterpolNumBoxXLeft_General.Value.ToString);
-  InputInterval.b := left_read(InterpolNumBoxXRight_General.Value.ToString);
   iends_to_strings(InputInterval, inL, inR);
   ComputeInterpolatedIntervalValue(InputInterval, PointsX_General, Coefficients_General, InterpolResult, status);
   iends_to_strings(InterpolResult, outL, outR);
   Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
-  InterpolNumBoxXLeft_General.Value := 0;
-  InterpolNumBoxXRight_General.Value := 0;
+  InterpolNumBoxXLeft_General.Text := '';
+  InterpolNumBoxXRight_General.Text := '';
 end;
 
 end.

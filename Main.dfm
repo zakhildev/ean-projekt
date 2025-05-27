@@ -131,22 +131,13 @@ object MainWindow: TMainWindow
         ItemHeight = 15
         TabOrder = 4
       end
-      object InterpolNumBoxX_Real: TNumberBox
-        Left = 229
-        Top = 348
-        Width = 603
-        Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 5
-      end
       object Results_Real: TListBox
         Left = 3
         Top = 408
         Width = 829
         Height = 184
         ItemHeight = 15
-        TabOrder = 6
+        TabOrder = 5
       end
       object ComputeResultsBtn_Real: TButton
         Left = 3
@@ -154,25 +145,28 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 25
         Caption = 'Oblicz warto'#347#263' interpolowan'#261
-        TabOrder = 7
+        TabOrder = 6
         OnClick = ComputeResultsBtn_RealClick
       end
-      object XNumBox_Real: TNumberBox
+      object XNumBox_Real: TEdit
         Left = 136
         Top = 24
         Width = 154
         Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 8
+        TabOrder = 7
       end
-      object YNumBox_Real: TNumberBox
+      object YNumBox_Real: TEdit
         Left = 136
         Top = 53
         Width = 154
         Height = 23
-        Decimal = 20
-        Mode = nbmFloat
+        TabOrder = 8
+      end
+      object InterpolNumBoxX_Real: TEdit
+        Left = 229
+        Top = 348
+        Width = 603
+        Height = 23
         TabOrder = 9
       end
     end
@@ -248,15 +242,6 @@ object MainWindow: TMainWindow
         TabOrder = 1
         OnClick = RemovePointBtn_UnitClick
       end
-      object YNumBox_Unit: TNumberBox
-        Left = 136
-        Top = 53
-        Width = 154
-        Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 2
-      end
       object PointsList_Unit: TListBox
         Left = 296
         Top = 24
@@ -264,7 +249,7 @@ object MainWindow: TMainWindow
         Height = 114
         Style = lbOwnerDrawVariable
         ItemHeight = 15
-        TabOrder = 3
+        TabOrder = 2
         OnDrawItem = OnRednderIntervalItem
         OnMeasureItem = OnMeasureIntervalItem
       end
@@ -274,18 +259,8 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 25
         Caption = 'Oblicz wsp'#243#322'czynniki'
-        TabOrder = 4
+        TabOrder = 3
         OnClick = ComputeCoefsBtn_UnitClick
-      end
-      object InterpolNumBoxX_Unit: TNumberBox
-        Left = 229
-        Top = 348
-        Width = 603
-        Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 5
-        NegativeValueColor = clBlack
       end
       object Results_Unit: TListBox
         Left = 3
@@ -293,7 +268,7 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 184
         ItemHeight = 15
-        TabOrder = 6
+        TabOrder = 4
       end
       object CoefBox_Unit: TListBox
         Left = 3
@@ -301,7 +276,7 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 114
         ItemHeight = 15
-        TabOrder = 7
+        TabOrder = 5
       end
       object AddPointBtn_Unit: TButton
         Left = 3
@@ -309,16 +284,28 @@ object MainWindow: TMainWindow
         Width = 287
         Height = 25
         Caption = 'Dodaj punkt'
-        TabOrder = 8
+        TabOrder = 6
         OnClick = AddPointBtn_UnitClick
       end
-      object XNumBox_Unit: TNumberBox
+      object XNumBox_Unit: TEdit
         Left = 136
         Top = 24
         Width = 154
         Height = 23
-        Decimal = 20
-        Mode = nbmFloat
+        TabOrder = 7
+      end
+      object YNumBox_Unit: TEdit
+        Left = 136
+        Top = 53
+        Width = 154
+        Height = 23
+        TabOrder = 8
+      end
+      object InterpolNumBoxX_Unit: TEdit
+        Left = 229
+        Top = 348
+        Width = 603
+        Height = 23
         TabOrder = 9
       end
     end
@@ -397,22 +384,13 @@ object MainWindow: TMainWindow
         Height = 15
         Caption = 'Prawy koniec przedzia'#322'u wsp'#243#322'rz'#281'dnej X punktu interpolowanego:'
       end
-      object XNumBoxLeft_General: TNumberBox
-        Left = 194
-        Top = 24
-        Width = 149
-        Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 0
-      end
       object ComputeResultsBtn_General: TButton
         Left = 3
         Top = 406
         Width = 829
         Height = 25
         Caption = 'Oblicz warto'#347#263' interpolowan'#261
-        TabOrder = 1
+        TabOrder = 0
         OnClick = ComputeResultsBtn_GeneralClick
       end
       object RemovePointBtn_General: TButton
@@ -421,17 +399,8 @@ object MainWindow: TMainWindow
         Width = 240
         Height = 25
         Caption = 'Usu'#324' punkt'
-        TabOrder = 2
+        TabOrder = 1
         OnClick = RemovePointBtn_GeneralClick
-      end
-      object XNumBoxRight_General: TNumberBox
-        Left = 194
-        Top = 53
-        Width = 149
-        Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 3
       end
       object PointsList_General: TListBox
         Left = 349
@@ -440,7 +409,7 @@ object MainWindow: TMainWindow
         Height = 83
         Style = lbOwnerDrawVariable
         ItemHeight = 15
-        TabOrder = 4
+        TabOrder = 2
         OnDrawItem = OnRednderIntervalItem
         OnMeasureItem = OnMeasureIntervalItem
       end
@@ -450,16 +419,7 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 114
         ItemHeight = 15
-        TabOrder = 5
-      end
-      object InterpolNumBoxXLeft_General: TNumberBox
-        Left = 359
-        Top = 348
-        Width = 473
-        Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 6
+        TabOrder = 3
       end
       object Results_General: TListBox
         Left = 3
@@ -467,7 +427,7 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 155
         ItemHeight = 15
-        TabOrder = 7
+        TabOrder = 4
       end
       object AddPointBtn_General: TButton
         Left = 349
@@ -475,7 +435,7 @@ object MainWindow: TMainWindow
         Width = 240
         Height = 25
         Caption = 'Dodaj punkt'
-        TabOrder = 8
+        TabOrder = 5
         OnClick = AddPointBtn_GeneralClick
       end
       object ComputeCoefsBtn_General: TButton
@@ -484,34 +444,49 @@ object MainWindow: TMainWindow
         Width = 829
         Height = 25
         Caption = 'Oblicz wsp'#243#322'czynniki'
-        TabOrder = 9
+        TabOrder = 6
         OnClick = ComputeCoefsBtn_GeneralClick
       end
-      object YNumBoxLeft_General: TNumberBox
+      object XNumBoxLeft_General: TEdit
+        Left = 194
+        Top = 24
+        Width = 149
+        Height = 23
+        TabOrder = 7
+      end
+      object XNumBoxRight_General: TEdit
+        Left = 194
+        Top = 53
+        Width = 149
+        Height = 23
+        TabOrder = 8
+      end
+      object YNumBoxLeft_General: TEdit
         Left = 194
         Top = 84
         Width = 149
         Height = 23
-        Decimal = 20
-        Mode = nbmFloat
-        TabOrder = 10
+        TabOrder = 9
       end
-      object YNumBoxRight_General: TNumberBox
+      object YNumBoxRight_General: TEdit
         Left = 194
         Top = 113
         Width = 149
         Height = 23
-        Decimal = 20
-        Mode = nbmFloat
+        TabOrder = 10
+      end
+      object InterpolNumBoxXLeft_General: TEdit
+        Left = 359
+        Top = 348
+        Width = 473
+        Height = 23
         TabOrder = 11
       end
-      object InterpolNumBoxXRight_General: TNumberBox
+      object InterpolNumBoxXRight_General: TEdit
         Left = 359
         Top = 377
         Width = 473
         Height = 23
-        Decimal = 20
-        Mode = nbmFloat
         TabOrder = 12
       end
     end
