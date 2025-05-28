@@ -244,7 +244,7 @@ begin
   PointsY_Unit := PointsY_Unit + [y];
   iends_to_strings(x, leftX, rightX);
   iends_to_strings(y, leftY, rightY);
-  PointsList_Unit.AddItem('X:[' + leftX + '; ' + rightX + '] |Y:['  + leftY + '; ' + rightY + ']', nil);
+  PointsList_Unit.AddItem('X:[' + leftX + '; ' + rightX + ']|Y:['  + leftY + '; ' + rightY + ']', nil);
   XNumBox_Unit.Text := '';
   YNumBox_Unit.Text := '';
   Coefficients_Unit := [];
@@ -309,7 +309,7 @@ begin
   iends_to_strings(InputInterval, inL, inR);
   ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit, Coefficients_Unit, InterpolResult, status);
   iends_to_strings(InterpolResult, outL, outR);
-  Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
+  Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxX_Unit.Text := '';
 end;
 
@@ -345,7 +345,7 @@ begin
   PointsY_General := PointsY_General + [y];
   iends_to_strings(x, leftX, rightX);
   iends_to_strings(y, leftY, rightY);
-  PointsList_General.AddItem('X:[' + leftX + '; ' + rightX + '] |Y:['  + leftY + '; ' + rightY + ']', nil);
+  PointsList_General.AddItem('X:[' + leftX + '; ' + rightX + ']|Y:['  + leftY + '; ' + rightY + ']', nil);
   XNumBoxLeft_General.Text := '';
   XNumBoxRight_General.Text := '';
   YNumBoxLeft_General.Text := '';
@@ -419,7 +419,7 @@ begin
   iends_to_strings(InputInterval, inL, inR);
   ComputeInterpolatedIntervalValue(InputInterval, PointsX_General, Coefficients_General, InterpolResult, status);
   iends_to_strings(InterpolResult, outL, outR);
-  Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']   Szerokość: ' + int_width(InterpolResult).ToString, nil);
+  Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxXLeft_General.Text := '';
   InterpolNumBoxXRight_General.Text := '';
 end;

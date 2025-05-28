@@ -32,7 +32,7 @@ object MainWindow: TMainWindow
     Top = 8
     Width = 843
     Height = 625
-    ActivePage = RealTab
+    ActivePage = UnitTab
     TabOrder = 0
     object RealTab: TTabSheet
       Caption = 'Liczby rzeczywiste'
@@ -267,8 +267,11 @@ object MainWindow: TMainWindow
         Top = 408
         Width = 829
         Height = 184
+        Style = lbOwnerDrawVariable
         ItemHeight = 15
         TabOrder = 4
+        OnDrawItem = OnRednderIntervalItem
+        OnMeasureItem = OnMeasureIntervalItem
       end
       object CoefBox_Unit: TListBox
         Left = 3
@@ -426,8 +429,11 @@ object MainWindow: TMainWindow
         Top = 437
         Width = 829
         Height = 155
+        Style = lbOwnerDrawVariable
         ItemHeight = 15
         TabOrder = 4
+        OnDrawItem = OnRednderIntervalItem
+        OnMeasureItem = OnMeasureIntervalItem
       end
       object AddPointBtn_General: TButton
         Left = 349
