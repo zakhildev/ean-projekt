@@ -205,7 +205,7 @@ begin
 
   for var i := Low(Coefficients_Real) to High(Coefficients_Real) do
   begin
-    CoefBox_Real.AddItem('Współczynnik c' + i.ToString + ': ' + Coefficients_Real[i].ToString, nil);
+    CoefBox_Real.AddItem('Współczynnik c' + i.ToString + ': ' + FloatToStrF(Coefficients_Real[i], ffExponent, 17, 16), nil);
   end;
 end;
 
@@ -235,7 +235,7 @@ begin
   if (status <> 0) then
     Exit;
 
-  Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Text + ') = ' + InterPolResult.ToString, nil);
+  Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Text + ') = ' + FloatToStrF(InterPolResult, ffExponent, 17, 16), nil);
   InterpolNumBoxX_Real.Text := '';
 end;
 
@@ -303,7 +303,7 @@ begin
   for var i := Low(Coefficients_Unit) to High(Coefficients_Unit) do
   begin
     iends_to_strings(Coefficients_Unit[i], left, right);
-    CoefBox_Unit.AddItem('Współczynnik c' + i.ToString + ': [' + left + #13#10 + right + ']', nil);
+    CoefBox_Unit.AddItem('Współczynnik c' + i.ToString + ': [' + left + #13#10 + right + '] Szerokość: ' + FloatToStrF(int_width(Coefficients_Unit[i]), ffExponent, 17, 16), nil);
   end;
 end;
 
@@ -333,7 +333,7 @@ begin
     Exit;
 
   iends_to_strings(InterpolResult, outL, outR);
-  Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + int_width(InterpolResult).ToString, nil);
+  Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + FloatToStrF(int_width(InterpolResult), ffExponent, 17, 16), nil);
   InterpolNumBoxX_Unit.Text := '';
 end;
 
@@ -418,7 +418,7 @@ begin
   for var i := Low(Coefficients_General) to High(Coefficients_General) do
   begin
     iends_to_strings(Coefficients_General[i], left, right);
-    CoefBox_General.AddItem('Współczynnik c' + i.ToString + ': [' + left + #13#10 + right + ']', nil);
+    CoefBox_General.AddItem('Współczynnik c' + i.ToString + ': [' + left + #13#10 + right + '] Szerokość: ' + FloatToStrF(int_width(Coefficients_General[i]), ffExponent, 17, 16), nil);
   end;
 end;
 
@@ -455,7 +455,7 @@ begin
     Exit;
 
   iends_to_strings(InterpolResult, outL, outR);
-  Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + int_width(InterpolResult).ToString, nil);
+  Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + FloatToStrF(int_width(InterpolResult), ffExponent, 17, 16), nil);
   InterpolNumBoxXLeft_General.Text := '';
   InterpolNumBoxXRight_General.Text := '';
 end;
