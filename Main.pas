@@ -195,6 +195,14 @@ begin
   end;
   CoefBox_Real.Clear;
   NewtonExtended(PointsX_Real, PointsY_Real, Coefficients_Real, status);
+
+  if (status <> 0) then
+  begin
+    SetLength(Coefficients_Real, 0);
+    CoefBox_Real.Clear;
+    Exit;
+  end;
+
   for var i := Low(Coefficients_Real) to High(Coefficients_Real) do
   begin
     CoefBox_Real.AddItem('Współczynnik c' + i.ToString + ': ' + Coefficients_Real[i].ToString, nil);
@@ -223,6 +231,10 @@ begin
   end;
 
   ComputeInterpolatedExtendedValue(value.ToExtended, PointsX_Real, Coefficients_Real, InterpolResult, status);
+
+  if (status <> 0) then
+    Exit;
+
   Results_Real.AddItem('f('+ InterpolNumBoxX_Real.Text + ') = ' + InterPolResult.ToString, nil);
   InterpolNumBoxX_Real.Text := '';
 end;
@@ -280,6 +292,14 @@ begin
   end;
   CoefBox_Unit.Clear;
   NewtonInterval(PointsX_Unit, PointsY_Unit, Coefficients_Unit, status);
+
+  if (status <> 0) then
+  begin
+    SetLength(Coefficients_Unit, 0);
+    CoefBox_Unit.Clear();
+    Exit;
+  end;
+
   for var i := Low(Coefficients_Unit) to High(Coefficients_Unit) do
   begin
     iends_to_strings(Coefficients_Unit[i], left, right);
@@ -308,6 +328,10 @@ begin
 
   iends_to_strings(InputInterval, inL, inR);
   ComputeInterpolatedIntervalValue(InputInterval, PointsX_Unit, Coefficients_Unit, InterpolResult, status);
+
+  if (status <> 0) then
+    Exit;
+
   iends_to_strings(InterpolResult, outL, outR);
   Results_Unit.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxX_Unit.Text := '';
@@ -383,6 +407,14 @@ begin
   end;
   CoefBox_General.Clear;
   NewtonInterval(PointsX_General, PointsY_General, Coefficients_General, status);
+
+  if (status <> 0) then
+  begin
+    SetLength(Coefficients_General, 0);
+    CoefBox_General.Clear();
+    Exit;
+  end;
+
   for var i := Low(Coefficients_General) to High(Coefficients_General) do
   begin
     iends_to_strings(Coefficients_General[i], left, right);
@@ -418,6 +450,10 @@ begin
 
   iends_to_strings(InputInterval, inL, inR);
   ComputeInterpolatedIntervalValue(InputInterval, PointsX_General, Coefficients_General, InterpolResult, status);
+
+  if (status <> 0) then
+    Exit;
+
   iends_to_strings(InterpolResult, outL, outR);
   Results_General.AddItem('f(['+ inL + '; ' + inR + ']) = [' + outL + '; ' + outR + ']|Szerokość: ' + int_width(InterpolResult).ToString, nil);
   InterpolNumBoxXLeft_General.Text := '';

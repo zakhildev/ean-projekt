@@ -67,6 +67,7 @@ begin
     on EZeroDivide do
     begin
       MessageDlg('B³¹d! Dzielenie przez przedzia³ zawieraj¹cy zero.', mtError, [mbOk], 0, mbOk);
+      status := 1;
       Exit;
     end;
   end;
@@ -81,6 +82,7 @@ begin
   if (Length(coeffs) = 0) or (Length(nodes) < Length(coeffs)) then
   begin
     MessageDlg('Nie mo¿na obliczyæ wartoœci interpolowanej — niepoprawne dane wejœciowe!', mtError, [mbOK], 0);
+    status := 1;
     Exit;
   end;
 
@@ -92,6 +94,8 @@ begin
       product := product * (x - nodes[j]);
     output := output + coeffs[i] * product;
   end;
+
+  status := 0;
 end;
 
 procedure ComputeInterpolatedIntervalValue(x: Interval; nodes, coeffs: TIntervalArray; out output: Interval; out status: Integer);
@@ -101,6 +105,7 @@ begin
   if (Length(coeffs) <= 0) or (Length(nodes) < Length(coeffs)) then
   begin
     MessageDlg('Nie mo¿na obliczcyæ wartoœci interpolowanej, gdy nie obliczono wspó³czynników!', mtError, [mbOK], 0, mbOK);
+    status := 1;
     Exit;
   end;
 

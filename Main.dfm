@@ -32,7 +32,7 @@ object MainWindow: TMainWindow
     Top = 8
     Width = 843
     Height = 625
-    ActivePage = UnitTab
+    ActivePage = RealTab
     TabOrder = 0
     object RealTab: TTabSheet
       Caption = 'Liczby rzeczywiste'
